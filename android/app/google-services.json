@@ -1,0 +1,42 @@
+{
+  "project_info": {
+    "project_number": "1042369865077",
+    "firebase_url": "https://freebid-33503.firebaseio.com",
+    "project_id": "freebid-33503",
+    "storage_bucket": "freebid-33503.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:1042369865077:android:98370855ec37fc87",
+        "android_client_info": {
+          "package_name": "com.example.freebid"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "1042369865077-r3f4mmgie3eo2ch40pllhou1ao76vl04.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyD00eZ6lX3bD1r1U-Mvpb7zXGa3yi-oYqk"
+        }
+      ],
+      "services": {
+        "analytics_service": {
+          "status": 1
+        },
+        "appinvite_service": {
+          "status": 1,
+          "other_platform_oauth_client": []
+        },
+        "ads_service": {
+          "status": 2
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
