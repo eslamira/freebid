@@ -1,181 +1,226 @@
 import 'package:flutter/material.dart';
-import 'package:freebid/UI/auth/validation.dart';
-import 'package:freebid/model/signin_model.dart';
-import 'package:freebid/UI/Utils/auth_client.dart';
 
-
-class signUp extends StatefulWidget {
+class SignUp extends StatefulWidget {
   @override
-  _signUpState createState() => _signUpState();
+  _SignUpState createState() => _SignUpState();
 }
 
-class _signUpState extends State<signUp> {
-  final GlobalKey<FormState> _signUpFormKey = GlobalKey<FormState>();
-  final GlobalKey<FormFieldState> _passKey = GlobalKey<FormFieldState>();
-  final Color start = const Color(0xFF2af598);
-  final Color end = const Color(0xFF009efd);
-  final SigningModel _signInData = SigningModel();
-
+class _SignUpState extends State<SignUp> {
   @override
   Widget build(BuildContext context) {
-    final MediaQueryData mediaQuery = MediaQuery.of(context);
     return Scaffold(
-     body: ListView(
-       children: <Widget>[
-         Form(
-           key: _signUpFormKey,
-           child: Column(
-             children: <Widget>[
+      backgroundColor: Color(0xFF0D475B),
+      body: ListView(
+        children: <Widget>[
+          Container(
+            margin: EdgeInsets.only(top: MediaQuery.of(context).padding.top + 20),
+            child: Column(
+              children: <Widget>[
+                InkWell(
+                  child: Container(
+                    alignment: Alignment.center,
+                    height: MediaQuery.of(context).size.height * 0.1,
+                    width: MediaQuery.of(context).size.width * 0.8,
+                    decoration: BoxDecoration(
+                        color: Color(0xFFE57373),
+                        borderRadius: BorderRadius.circular(5)
+                    ),
+                    child: Container(
+                      margin: EdgeInsets.only(left: MediaQuery.of(context).padding.left + 45),
+                      child: Row(
+                        children: <Widget>[
+                          Text("Sign up with Facebook",style: TextStyle(color: Color(0xFF3B5998),fontSize: 20),),
+                          Padding(padding: EdgeInsets.only(left: 10)),
+                          Image.asset('assets/images/fb-logo.png',scale: 25,)
+                        ],
+                      ),
+                    )
+                  ),
+                  onTap: null,
+                ),
 
-               Padding(
-                   padding:
-                   EdgeInsets.only(top: mediaQuery.padding.top + 10)),
+                Container(
+                  alignment: Alignment.topLeft,
+                  child: Column(
+                    children: <Widget>[
+                      Container(
+                        width: MediaQuery.of(context).size.width,
+                        margin:
+                        const EdgeInsets.only(left: 30.0, right: 30.0, top: 20.0),
+                        alignment: Alignment.center,
+                        child: Row(
+                          children: <Widget>[
+                            new Expanded(
+                              child: new Container(
+                                margin: EdgeInsets.all(8.0),
+                                decoration:
+                                BoxDecoration(
+                                    border: Border.all(width: 0.25,color: Colors.white,),
+                                ),
+                              ),
+                            ),
+                            Container(
+                              child: Padding(
+                                  padding: const EdgeInsets.all(12.0),
+                                  child: Text("OR",
+                                      style: TextStyle(
+                                          fontSize: 20, color: Color(0xFF73EF37)))),
+                            ),
+                            new Expanded(
+                              child: new Container(
+                                margin: EdgeInsets.all(8.0),
+                                decoration:
+                                BoxDecoration(border: Border.all(width: 0.25,color: Colors.white)),
+                              ),
+                            ),
+                          ],
+                        ),
+                      ),
+                    ],
+                  ),
+                ),
 
-               Container(
-                 decoration: BoxDecoration(
-                     borderRadius: BorderRadius.circular(50),
-                     color: Colors.cyan
-                 ),
-                 width: MediaQuery.of(context).size.width * 0.2,
-                 height: MediaQuery.of(context).size.height * 0.1,
-                 child: Text("freebid",style: TextStyle(fontWeight: FontWeight.w300),),
-                 alignment: Alignment.center,
-               ),
+                Container(
+                  width: MediaQuery.of(context).size.width * 0.8,
+                  child: TextFormField(
+                    decoration: InputDecoration(
+                        hintText: "First name",
+                      hintStyle: TextStyle(
+                        color: Color(0xFF676767),
+                      ),
+                      border: UnderlineInputBorder(borderSide: BorderSide(color: Colors.white)),
+                      focusedBorder: UnderlineInputBorder(borderSide: BorderSide(color: Colors.white))
+                    ),
+                    style: TextStyle(color: Colors.white),
+                  ),
+                ),
 
-               Padding(
-                   padding:
-                   EdgeInsets.only(top: mediaQuery.padding.top + 10)),
+                Padding(padding: EdgeInsets.only(top: MediaQuery.of(context).padding.top)),
 
-               //////////////////////////////////////  Email TextField  \\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\
+                Container(
+                  width: MediaQuery.of(context).size.width * 0.8,
+                  child: TextFormField(
+                    style: TextStyle(color: Colors.white),
+                    decoration: InputDecoration(
+                        hintText: "Last name",
+                        hintStyle: TextStyle(
+                          color: Color(0xFF676767),
+                        ),
+                        border: UnderlineInputBorder(borderSide: BorderSide(color: Colors.white)),
+                        focusedBorder: UnderlineInputBorder(borderSide: BorderSide(color: Colors.white))
+                    ),
+                  ),
+                ),
 
-               Container(
-                 width: mediaQuery.size.width * 0.83,
-                 child: TextFormField(
-                   decoration: InputDecoration(
-                       hintText: "Email",
-                       contentPadding:
-                       EdgeInsets.fromLTRB(30.0, 20.0, 0.0, 20.0),
-                       hintStyle: TextStyle(
-                         color: Colors.black26,
-                       ),
-                       border: OutlineInputBorder(
-                         borderRadius:
-                         BorderRadius.all(Radius.circular(30.0)),
-                       )),
-                   maxLength: 32,
-                   onSaved: (val) => _signInData.email = val,
-                   validator: (email) =>
-                       Validation.isValidEmail(email, context),
-                 ),
-               ),
+                Padding(padding: EdgeInsets.only(top: MediaQuery.of(context).padding.top)),
 
-               Padding(padding: EdgeInsets.only(top: 10.0)),
+                Container(
+                  width: MediaQuery.of(context).size.width * 0.8,
+                  child: TextFormField(
+                    style: TextStyle(color: Colors.white),
+                    decoration: InputDecoration(
+                        hintText: "Email",
+                        hintStyle: TextStyle(
+                          color: Color(0xFF676767),
+                        ),
+                        border: UnderlineInputBorder(borderSide: BorderSide(color: Colors.white)),
+                        focusedBorder: UnderlineInputBorder(borderSide: BorderSide(color: Colors.white))
+                    ),
+                  ),
+                ),
 
-               //////////////////////////////////////  Password TextField  \\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\
+                Padding(padding: EdgeInsets.only(top: MediaQuery.of(context).padding.top)),
 
-               Container(
-                 width: mediaQuery.size.width * 0.83,
-                 child: TextFormField(
-                   key: _passKey,
-                   decoration: InputDecoration(
-                       hintText: "Password",
-                       contentPadding:
-                       EdgeInsets.fromLTRB(30.0, 20.0, 0.0, 20.0),
-                       hintStyle: TextStyle(
-                         color: Colors.black26,
-                       ),
-                       border: OutlineInputBorder(
-                         borderRadius:
-                         BorderRadius.all(Radius.circular(30.0)),
-                       )),
-                   maxLength: 32,
-                   onSaved: (val) => _signInData.password = val,
-                   validator: (password) =>
-                       Validation.isValidPassword(password, context),
-                   obscureText: true,
-                 ),
-               ),
+                Container(
+                  width: MediaQuery.of(context).size.width * 0.8,
+                  child: TextFormField(
+                    style: TextStyle(color: Colors.white),
+                    decoration: InputDecoration(
+                        hintText: "Tel no.",
+                        hintStyle: TextStyle(
+                          color: Color(0xFF676767),
+                        ),
+                        border: UnderlineInputBorder(borderSide: BorderSide(color: Colors.white)),
+                        focusedBorder: UnderlineInputBorder(borderSide: BorderSide(color: Colors.white))
+                    ),
+                  ),
+                ),
 
-               Padding(padding: EdgeInsets.only(top: 10.0)),
+                Padding(padding: EdgeInsets.only(top: MediaQuery.of(context).padding.top)),
 
-               //////////////////////////////////////  Confirm Password TextField  \\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\
+                Container(
+                  width: MediaQuery.of(context).size.width * 0.8,
+                  child: TextFormField(
+                    style: TextStyle(color: Colors.white),
+                    decoration: InputDecoration(
+                        hintText: "Password",
+                        hintStyle: TextStyle(
+                          color: Color(0xFF676767),
+                        ),
+                        border: UnderlineInputBorder(borderSide: BorderSide(color: Colors.white)),
+                        focusedBorder: UnderlineInputBorder(borderSide: BorderSide(color: Colors.white))
+                    ),
+                  ),
+                ),
+
+                Padding(padding: EdgeInsets.only(top: MediaQuery.of(context).padding.top)),
+
+                Container(
+                  width: MediaQuery.of(context).size.width * 0.8,
+                  child: TextFormField(
+                    style: TextStyle(color: Colors.white),
+                    decoration: InputDecoration(
+                        hintText: "Confirm password",
+                        hintStyle: TextStyle(
+                          color: Color(0xFF676767),
+                        ),
+                        border: UnderlineInputBorder(borderSide: BorderSide(color: Colors.white)),
+                        focusedBorder: UnderlineInputBorder(borderSide: BorderSide(color: Colors.white))
+                    ),
+                  ),
+                ),
+
+                Padding(padding: EdgeInsets.only(top: MediaQuery.of(context).padding.top + 20)),
+
+                InkWell(
+                  child: Container(
+                      alignment: Alignment.center,
+                      height: MediaQuery.of(context).size.height * 0.1,
+                      width: MediaQuery.of(context).size.width * 0.8,
+                      decoration: BoxDecoration(
+                          color: Color(0xFFE57373),
+                          borderRadius: BorderRadius.circular(5)
+                      ),
+                    child: Text("NEXT",style: TextStyle(color: Colors.white,fontSize: 30),),
+                  ),
+                  onTap: ()=> Navigator.of(context).pushReplacementNamed('/categories'),
+                ),
 
 
-               Container(
-                 width: mediaQuery.size.width * 0.83,
-                 child: TextFormField(
-                   decoration: InputDecoration(
-                       hintText: "Confirm password",
-                       contentPadding:
-                       EdgeInsets.fromLTRB(30.0, 20.0, 0.0, 20.0),
-                       hintStyle: TextStyle(
-                         color: Colors.black26,
-                       ),
-                       border: OutlineInputBorder(
-                         borderRadius:
-                         BorderRadius.all(Radius.circular(30.0)),
-                       )),
-                   obscureText: true,
-                   autovalidate: true,
-                   maxLength: 32,
-                   validator: (confirmation) {
-                     var password = _passKey.currentState.value;
-                     return confirmation == password
-                         ? null
-                         : "Password doesn't match";
-                   },
-                 ),
-               ),
+                Container(
+                  margin: EdgeInsets.only(left: 25),
+                  child: Row(
+                    children: <Widget>[
+                      Padding(padding: EdgeInsets.only(left: MediaQuery.of(context).padding.left + 40)),
+                      Text("By Joining you agree to our ",style: TextStyle(color: Colors.white,fontSize: 12),),
+                      InkWell(
+                        child: Text("Terms",style: TextStyle(color: Colors.white,fontSize: 12,fontWeight: FontWeight.bold),),
+                        onTap: null,
+                      ),
+                      Text(" & ",style: TextStyle(color: Colors.white,fontSize: 12),),
+                      InkWell(
+                        child: Text("Privacy Policy",style: TextStyle(color: Colors.white,fontSize: 12,fontWeight: FontWeight.bold),),
+                        onTap: null,
+                      ),
+                    ],
+                  ),
+                )
 
-               Padding(padding: EdgeInsets.only(top: 10.0)),
-
-               Container(
-                 width: mediaQuery.size.width * 0.83,
-                 child: TextFormField(
-                   keyboardType: TextInputType.phone,
-                   decoration: InputDecoration(
-                       hintText: "Phone Number",
-                       contentPadding:
-                       EdgeInsets.fromLTRB(30.0, 20.0, 0.0, 20.0),
-                       hintStyle: TextStyle(
-                         color: Colors.black26,
-                       ),
-                       border: OutlineInputBorder(
-                         borderRadius:
-                         BorderRadius.all(Radius.circular(30.0)),
-                       )),
-                   onSaved: (val) => _signInData.password = val,
-                   maxLength: 11,
-                   validator: (pNum) =>
-                       Validation.isValidPhone(pNum, context),
-                 ),
-               ),
-
-               Padding(padding: EdgeInsets.only(top: 10.0)),
-
-               Container(
-                   width: mediaQuery.size.width * 0.83,
-                   decoration: BoxDecoration(
-                     borderRadius: BorderRadius.circular(30.0),
-                     gradient: LinearGradient(
-                       colors: [start, end],
-                       begin: FractionalOffset.topCenter,
-                       end: FractionalOffset.bottomCenter,
-                     ),
-                   ),
-                   child: MaterialButton(
-                     height: 55.0,
-                     minWidth: 300.0,
-                     textColor: Colors.white,
-                     child: Text("Sign up"),
-                     onPressed: () => null,
-                   )),
-
-             ],
-           ),
-         ),
-       ],
-     ),
+              ],
+            ),
+          )
+        ],
+      ),
     );
   }
 }

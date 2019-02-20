@@ -85,257 +85,55 @@ class _LoginScreenState extends State<LoginScreen> {
     final MediaQueryData mediaQuery = MediaQuery.of(context);
 
     return Scaffold(
-      body: ListView(
+      body: Stack(
         children: <Widget>[
           Container(
-            margin: EdgeInsets.only(top: 40.0),
-            alignment: Alignment.topCenter,
-            child: Form(
-              //key: _signInFormKey,
-              child: Column(
-                children: <Widget>[
-                  //////////////////////////////////////  Logo \\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\
-
-                  Container(
-                    decoration: BoxDecoration(
-                        borderRadius: BorderRadius.circular(50),
-                        color: Colors.cyan
-                    ),
-                    width: MediaQuery.of(context).size.width * 0.2,
-                    height: MediaQuery.of(context).size.height * 0.1,
-                    child: Text("freebid",style: TextStyle(fontWeight: FontWeight.w300),),
-                    alignment: Alignment.center,
-                  ),
-
-                  Padding(
-                      padding:
-                      EdgeInsets.only(top: mediaQuery.padding.top + 20)),
-
-                  //////////////////////////////////////  Email TextField  \\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\
-
-                  Container(
-                    width: mediaQuery.size.width * 0.83,
-                    child: TextFormField(
-                      decoration: InputDecoration(
-                          hintText: "Email",
-                          contentPadding:
-                          EdgeInsets.fromLTRB(30.0, 20.0, 0.0, 20.0),
-                          hintStyle: TextStyle(
-                            color: Colors.black26,
-                          ),
-                          border: OutlineInputBorder(
-                            borderRadius:
-                            BorderRadius.all(Radius.circular(30.0)),
-                          )),
-                      onSaved: (val) => _signInData.email = val,
-                      maxLength: 32,
-                      validator: (email) =>
-                          Validation.isValidEmail(email, context),
-                    ),
-                  ),
-
-                  Padding(padding: EdgeInsets.only(top: 20.0)),
-
-                  //////////////////////////////////////  Password TextField  \\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\
-
-                  Container(
-                    width: mediaQuery.size.width * 0.83,
-                    child: TextFormField(
-                      decoration: InputDecoration(
-                          hintText: "Password",
-                          contentPadding:
-                          EdgeInsets.fromLTRB(30.0, 20.0, 0.0, 20.0),
-                          hintStyle: TextStyle(
-                            color: Colors.black26,
-                          ),
-                          border: OutlineInputBorder(
-                            borderRadius:
-                            BorderRadius.all(Radius.circular(30.0)),
-                          )),
-                      onSaved: (val) => _signInData.password = val,
-                      maxLength: 32,
-                      validator: (password) =>
-                          Validation.isValidPassword(password, context),
-                      obscureText: true,
-                    ),
-                  ),
-
-                  Padding(padding: EdgeInsets.only(top: 10.0)),
-
-                  //////////////////////////////////////  Forogt password Button  \\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\
-
-                  Row(
-                    children: <Widget>[
-                      Padding(padding: EdgeInsets.only(left: mediaQuery.padding.left + 60)),
-                      Text(
-                        "did`t have a account ?",
-                        style: TextStyle(color: Colors.black26),
-                      ),
-                      InkWell(
-                        child: Text(
-                          " Sign Up here",
-                          style: TextStyle(color: Colors.blueAccent,),
-
-                        ),
-                        onTap: () => Navigator.of(context).pushNamed('/signUp'),
-                      )
-                    ],
-                  ),
-
-                  Padding(
-                      padding:
-                      EdgeInsets.only(top: mediaQuery.padding.top - 5)),
-
-                  //////////////////////////////////////  Login Button \\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\
-
-                  Container(
-                      width: mediaQuery.size.width * 0.83,
-                      decoration: BoxDecoration(
-                        borderRadius: BorderRadius.circular(30.0),
-                        gradient: LinearGradient(
-                          colors: [start, end],
-                          begin: FractionalOffset.topCenter,
-                          end: FractionalOffset.bottomCenter,
-                        ),
-                      ),
-                      child: MaterialButton(
-                        height: 55.0,
-                        minWidth: 300.0,
-                        textColor: Colors.white,
-                        child: Text("Log in"),
-                        onPressed: () => _emailLogin(context),
-                      )
-                  ),
-
-                  Padding(padding: EdgeInsets.only(top: 10)),
-
-                  InkWell(
-                    child: Text(
-                      "Forgot Password ?",
-                      style: TextStyle(color: Colors.black26),
-                    ),
-                    onTap: () => Navigator.of(context).pushNamed('/forgotPass'),
-                  ),
-
-                ],
-              ),
-            ),
+            height: MediaQuery.of(context).size.height,
+            width: MediaQuery.of(context).size.width,
+            child: Image.asset('assets/images/background.png',fit: BoxFit.fill,),
           ),
-
-          //////////////////////////////////////   OR  \\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\
-
           Container(
-            alignment: Alignment.topLeft,
+            alignment: Alignment.topCenter,
+            margin: EdgeInsets.only(top: MediaQuery.of(context).padding.top + 160),
+            child: Image.asset('assets/images/Freebid.png',fit: BoxFit.fill,),
+          ),
+          Container(
+            alignment: Alignment.center,
+            margin: EdgeInsets.only(top: MediaQuery.of(context).padding.top + 400),
             child: Column(
               children: <Widget>[
-                Container(
-                  width: MediaQuery.of(context).size.width,
-                  margin:
-                  const EdgeInsets.only(left: 30.0, right: 30.0, top: 20.0),
-                  alignment: Alignment.center,
-                  child: Row(
-                    children: <Widget>[
-                      Expanded(
-                        child: Container(
-                          margin: EdgeInsets.all(8.0),
-                          decoration:
-                          BoxDecoration(border: Border.all(width: 0.25)),
-                        ),
-                      ),
-                      Container(
-                        decoration: BoxDecoration(
-                          shape: BoxShape.circle,
-                          border: Border.all(color: Colors.black26),
-                        ),
-                        child: Padding(
-                            padding: const EdgeInsets.all(12.0),
-                            child: Text("Or",
-                                style: TextStyle(
-                                    fontSize: 15.0, color: Colors.black26))),
-                      ),
-                      Expanded(
-                        child: Container(
-                          margin: EdgeInsets.all(8.0),
-                          decoration:
-                          BoxDecoration(border: Border.all(width: 0.25)),
-                        ),
-                      ),
-                    ],
+                InkWell(
+                  child: Container(
+                    alignment: Alignment.center,
+                    height: MediaQuery.of(context).size.height * 0.09,
+                    width: MediaQuery.of(context).size.width * 0.6,
+                    decoration: BoxDecoration(
+                        color: Color(0xFFE57373),
+                        borderRadius: BorderRadius.circular(5)
+                    ),
+                    child: Text("Sign up",style: TextStyle(color: Colors.white,fontSize: 30),),
                   ),
+                  onTap: ()=> Navigator.of(context).pushNamed('/signUp'),
                 ),
-                Stack(
-                  children: <Widget>[
-                    InkWell(
-                      child: Container(
-                          margin: EdgeInsets.only(top: 15.0),
-//                    margin: EdgeInsets.only(
-//                        left: mediaQuery.padding.left + 30.0,
-//                        top: mediaQuery.padding.top + 55.0),
-                          width: mediaQuery.size.width * 0.85,
-                          decoration: BoxDecoration(
-                              borderRadius: BorderRadius.circular(30.0),
-                              color: Color(0xFF3B5998)),
-                          child: MaterialButton(
-                            height: 55.0,
-                            minWidth: 300.0,
-                            textColor: Colors.white,
-                            padding: EdgeInsets.only(left: 30.0),
-                            child: new Text(
-                              "Continue with Facebook",
-                            ),
-                            onPressed: () => _facebookLogin(context),
-                          )),
+                Padding(padding: EdgeInsets.only(top: MediaQuery.of(context).padding.top + 20)),
+                InkWell(
+                  child: Container(
+                    alignment: Alignment.center,
+                    height: MediaQuery.of(context).size.height * 0.09,
+                    width: MediaQuery.of(context).size.width * 0.6,
+                    decoration: BoxDecoration(
+                        border: Border.all(color: Colors.white),
+                        borderRadius: BorderRadius.circular(5)
                     ),
-                    Container(
-                      margin: EdgeInsets.all(25),
-                      child: Image.asset(
-                        '$_fbLogo',
-                        width: 20.0,
-                        height: 30.0,
-                      ),
-                    ),
-                  ],
-                ),
-                Stack(
-                  children: <Widget>[
-                    InkWell(
-                      child: Container(
-                          margin: EdgeInsets.only(top: 3.0),
-//                    margin: EdgeInsets.only(
-//                        left: mediaQuery.padding.left + 30.0,
-//                        top: mediaQuery.padding.top + 55.0),
-                          width: mediaQuery.size.width * 0.85,
-                          decoration: BoxDecoration(
-                              borderRadius: BorderRadius.circular(30.0),
-                              color: Color(0xFF3367d6)),
-                          child: MaterialButton(
-                            height: 55.0,
-                            minWidth: 300.0,
-                            textColor: Colors.white,
-                            padding: EdgeInsets.only(left: 30.0),
-                            child: new Text(
-                              "Continue with Facebook",
-                            ),
-                            onPressed: () => null,
-                          )),
-                    ),
-                    Container(
-                      margin: EdgeInsets.only(left: 15,top: 0,),
-                      //color: Colors.white,
-                      child: Image.asset(
-                        '$_GLogo',
-                        width: 50.0,
-                        height: 60.0,
-                        alignment: Alignment.center,
-                      ),
-                    ),
-                  ],
-                ),
+                    child: Text("Log in",style: TextStyle(color: Colors.white,fontSize: 30),),
+                  ),
+                  onTap: ()=> Navigator.of(context).pushNamed('/signIn'),
+                )
               ],
             ),
-          ),
+          )
         ],
-      ),
+      )
     );
   }
 }
