@@ -1,6 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:freebid/UI/Utils/auth_client.dart';
-import 'package:freebid/model/signin_model.dart';
 
 class LoginScreen extends StatefulWidget {
   @override
@@ -8,81 +6,8 @@ class LoginScreen extends StatefulWidget {
 }
 
 class _LoginScreenState extends State<LoginScreen> {
-  final GlobalKey<FormState> _signInFormKey = GlobalKey<FormState>();
-  final AuthClient _authClient = AuthClient.internal();
-  final Color start = const Color(0xFF2af598);
-  final Color end = const Color(0xFF009efd);
-  final SigningModel _signInData = SigningModel();
-  final String _fbLogo = "assets/images/fb-logo.png";
-  final String _GLogo = "assets/images/G-logo.png";
-  _emailLogin(BuildContext context) async {
-    final formState = _signInFormKey.currentState;
-    _loading();
-    if (formState.validate()) {
-      formState.save();
-      try {
-        await _authClient.signInWithEmailAndPassword(
-            _signInData.email, _signInData.password);
-        //Navigator.of(context).pushReplacementNamed('/main');
-      } catch (e) {
-        _showErrorDialog(e.toString());
-      }
-    }
-  }
-
-  _loading() {
-    return showDialog(
-      context: context,
-      barrierDismissible: false,
-      builder: (context) {
-        return Container(
-          child: Column(
-            mainAxisAlignment: MainAxisAlignment.center,
-            children: <Widget>[
-              CircularProgressIndicator(
-                backgroundColor: Colors.purple,
-                strokeWidth: 4.0,
-              ),
-            ],
-          ),
-        );
-      },
-    );
-  }
-
-  _facebookLogin(BuildContext context) async {
-    _loading();
-    try {
-      await _authClient.signInWithFacebook();
-      Navigator.of(context).pushReplacementNamed('/main');
-    } catch (e) {
-      _showErrorDialog(e.toString());
-    }
-  }
-
-  _showErrorDialog(String error) {
-    Navigator.of(context).pop();
-    return showDialog(
-      context: context,
-      builder: (context) {
-        return AlertDialog(
-          title: Text("Error!"),
-          content: Text(error.toString()),
-          actions: <Widget>[
-            FlatButton(
-              onPressed: () => Navigator.of(context).pop(),
-              child: Text("Ok"),
-            ),
-          ],
-        );
-      },
-    );
-  }
-
   @override
   Widget build(BuildContext context) {
-    final MediaQueryData mediaQuery = MediaQuery.of(context);
-
     return Scaffold(
         body: Stack(
       children: <Widget>[
