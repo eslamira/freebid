@@ -20,7 +20,8 @@ class _SignInState extends State<SignIn> {
       try {
         await _authClient.signInWithEmailAndPassword(
             _signInData.email, _signInData.password);
-        Navigator.of(context).pushReplacementNamed('/categories');
+        Navigator.of(context).pushNamedAndRemoveUntil(
+            '/categories', (Route<dynamic> route) => false);
       } catch (e) {
         _showErrorDialog(e.toString());
       }
@@ -51,7 +52,8 @@ class _SignInState extends State<SignIn> {
     _loading();
     try {
       await _authClient.signInWithFacebook();
-      Navigator.of(context).pushReplacementNamed('/categories');
+      Navigator.of(context).pushNamedAndRemoveUntil(
+          '/categories', (Route<dynamic> route) => false);
     } catch (e) {
       _showErrorDialog(e.toString());
     }

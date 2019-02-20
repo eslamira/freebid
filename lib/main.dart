@@ -15,7 +15,7 @@ void main() {
       '/signIn': (BuildContext context) => SignIn(),
       '/signUp': (BuildContext context) => SignUp(),
       '/SearchScreen': (BuildContext context) => Categories(),
-      '/adverts': (BuildContext context) => advert(),
+      '/adverts': (BuildContext context) => Advert(),
       '/categories': (BuildContext context) => Categories(),
       /*'/forgotPass': (BuildContext context) => ForgotPasswordScreen(),
       '/main': (BuildContext context) => MainScreen(),
