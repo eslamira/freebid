@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:freebid/UI/advert.dart';
 import 'package:freebid/UI/auth/LogIn.dart';
 import 'package:freebid/UI/auth/signIn.dart';
 import 'package:freebid/UI/auth/signUp.dart';
@@ -15,7 +14,6 @@ void main() {
       '/signIn': (BuildContext context) => SignIn(),
       '/signUp': (BuildContext context) => SignUp(),
       '/SearchScreen': (BuildContext context) => Categories(),
-      '/adverts': (BuildContext context) => Advert(),
       '/categories': (BuildContext context) => Categories(),
       /*'/forgotPass': (BuildContext context) => ForgotPasswordScreen(),
       '/main': (BuildContext context) => MainScreen(),

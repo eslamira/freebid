@@ -2,6 +2,7 @@ import 'dart:async';
 
 import 'package:firebase_database/firebase_database.dart';
 import 'package:freebid/UI/Utils/auth_client.dart';
+import 'package:freebid/UI/widgets/advert_box.dart';
 import 'package:freebid/model/categoryModel.dart';
 import 'package:freebid/model/user_model.dart';
 
@@ -91,25 +92,34 @@ class DatabaseClient {
 
     await usersRef.once().then((snapshot) {
       Map<dynamic, dynamic> temp = snapshot.value;
-      temp.values.forEach((tUser) {
-        cat.add(CategoryModel(catName: tUser['name']));
+      temp.keys.forEach((catK) {
+        cat.add(CategoryModel(
+          catName: temp[catK]['name'],
+          id: catK,
+        ));
       });
     });
     return cat;
   }
 
-  Future<List<CategoryModel>> getProducts() async {
-    List<CategoryModel> cat = List<CategoryModel>();
+  Future<List<AdvertBox>> getProducts() async {
+    List<AdvertBox> prods = List<AdvertBox>();
 
-    DatabaseReference usersRef =
-        _databaseClient.reference().child("categories/");
+    DatabaseReference usersRef = _databaseClient.reference().child("products/");
 
     await usersRef.once().then((snapshot) {
       Map<dynamic, dynamic> temp = snapshot.value;
-      temp.values.forEach((tUser) {
-        cat.add(CategoryModel(catName: tUser['name']));
+      temp.values.forEach((p) {
+        prods.add(AdvertBox(
+          img: p['thumbnail'],
+          date: p['dateUpdated'],
+          price: p['price'].toString(),
+          name: p['title'],
+          cat: p['category'],
+          location: p['url'],
+        ));
       });
     });
-    return cat;
+    return prods;
   }
 }

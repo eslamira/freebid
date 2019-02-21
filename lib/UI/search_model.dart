@@ -23,9 +23,8 @@ class SearchResult extends SearchDelegate<CategoryModel> {
     final ThemeData theme = Theme.of(context);
     assert(theme != null);
     return theme.copyWith(
-      primaryColor: Colors.white,
-      primaryIconTheme:
-          theme.primaryIconTheme.copyWith(color: Color(0xFF0D475B)),
+      primaryColor: Color(0xFF0D475B),
+      primaryIconTheme: theme.primaryIconTheme.copyWith(color: Colors.white),
       primaryColorBrightness: Brightness.light,
       primaryTextTheme: theme.textTheme,
     );
