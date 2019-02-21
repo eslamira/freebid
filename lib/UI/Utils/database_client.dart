@@ -2,6 +2,7 @@ import 'dart:async';
 
 import 'package:firebase_database/firebase_database.dart';
 import 'package:freebid/UI/Utils/auth_client.dart';
+import 'package:freebid/model/categoryModel.dart';
 import 'package:freebid/model/user_model.dart';
 
 class DatabaseClient {
@@ -70,7 +71,7 @@ class DatabaseClient {
   Future<UserModel> getCurrentUserData() async {
     String _userID = await getUserID();
 
-    UserModel user;
+    UserModel user = UserModel();
 
     DatabaseReference usersRef =
         _databaseClient.reference().child("users/" + _userID);
@@ -80,5 +81,35 @@ class DatabaseClient {
     });
 
     return user;
+  }
+
+  Future<List<CategoryModel>> getCategories() async {
+    List<CategoryModel> cat = List<CategoryModel>();
+
+    DatabaseReference usersRef =
+        _databaseClient.reference().child("categories/");
+
+    await usersRef.once().then((snapshot) {
+      Map<dynamic, dynamic> temp = snapshot.value;
+      temp.values.forEach((tUser) {
+        cat.add(CategoryModel(catName: tUser['name']));
+      });
+    });
+    return cat;
+  }
+
+  Future<List<CategoryModel>> getProducts() async {
+    List<CategoryModel> cat = List<CategoryModel>();
+
+    DatabaseReference usersRef =
+        _databaseClient.reference().child("categories/");
+
+    await usersRef.once().then((snapshot) {
+      Map<dynamic, dynamic> temp = snapshot.value;
+      temp.values.forEach((tUser) {
+        cat.add(CategoryModel(catName: tUser['name']));
+      });
+    });
+    return cat;
   }
 }

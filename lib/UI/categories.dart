@@ -1,5 +1,9 @@
 import 'package:flutter/material.dart';
+import 'package:freebid/UI/Utils/database_client.dart';
+import 'package:freebid/UI/search_model.dart';
 import 'package:freebid/UI/widgets/drawer.dart';
+import 'package:freebid/model/categoryModel.dart';
+import 'package:freebid/model/user_model.dart';
 
 class Categories extends StatefulWidget {
   @override
@@ -7,7 +11,24 @@ class Categories extends StatefulWidget {
 }
 
 class _CategoriesState extends State<Categories> {
-  TextEditingController controller = new TextEditingController();
+  DatabaseClient _databaseClient = DatabaseClient.internal();
+  List<CategoryModel> cats = List<CategoryModel>();
+  UserModel _userModel = UserModel();
+
+  @override
+  void initState() {
+    super.initState();
+    _initData();
+  }
+
+  _initData() async {
+    List temp = await _databaseClient.getCategories();
+    UserModel u = await _databaseClient.getCurrentUserData();
+    setState(() {
+      cats = temp;
+      _userModel = u;
+    });
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -18,6 +39,11 @@ class _CategoriesState extends State<Categories> {
         title: Text(
           "Categories",
           style: TextStyle(color: Color(0xFFE57373)),
+        ),
+        leading: InkWell(
+          onTap: () =>
+              showSearch(context: context, delegate: SearchResult(cats)),
+          child: Icon(Icons.search),
         ),
         actions: <Widget>[
           Builder(
@@ -33,150 +59,16 @@ class _CategoriesState extends State<Categories> {
       endDrawer: Drawer(
         child: DrawerCus(
           img: 'assets/images/G-logo.png',
-          name: "Utchiha Sasuke",
+          name: "${_userModel.fName} ${_userModel.lName}",
         ),
       ),
-      body: ListView(
-        children: <Widget>[
-          Column(
-            children: <Widget>[
-              Padding(
-                padding: const EdgeInsets.all(8.0),
-                child: Card(
-                  child: ListTile(
-                    title: TextFormField(
-                      decoration: InputDecoration(
-                        hintText: "Search...",
-                        border: InputBorder.none,
-                      ),
-                    ),
-                  ),
-                ),
-              ),
-              Padding(padding: EdgeInsets.only(top: 10)),
-              Divider(color: Colors.black),
-              Container(
-                margin: EdgeInsets.only(
-                    left: MediaQuery.of(context).padding.left + 10),
-                child: ListTile(
-                  title: Text(
-                    "Motors",
-                    style: TextStyle(
-                      color: Color(0xFF676767),
-                      fontSize: 23,
-                    ),
-                  ),
-                  onTap: () => Navigator.of(context).pushNamed('/adverts'),
-                ),
-              ),
-              Divider(color: Colors.black),
-              Container(
-                margin: EdgeInsets.only(
-                    left: MediaQuery.of(context).padding.left + 10),
-                child: ListTile(
-                  title: Text(
-                    "Fashion",
-                    style: TextStyle(
-                      color: Color(0xFF676767),
-                      fontSize: 23,
-                    ),
-                  ),
-                  onTap: null,
-                ),
-              ),
-              Divider(color: Colors.black),
-              Container(
-                margin: EdgeInsets.only(
-                    left: MediaQuery.of(context).padding.left + 10),
-                child: ListTile(
-                  title: Text(
-                    "Collectibles & Art",
-                    style: TextStyle(
-                      color: Color(0xFF676767),
-                      fontSize: 23,
-                    ),
-                  ),
-                  onTap: null,
-                ),
-              ),
-              Divider(color: Colors.black),
-              Container(
-                margin: EdgeInsets.only(
-                    left: MediaQuery.of(context).padding.left + 10),
-                child: ListTile(
-                  title: Text(
-                    "Home & Garden",
-                    style: TextStyle(
-                      color: Color(0xFF676767),
-                      fontSize: 23,
-                    ),
-                  ),
-                  onTap: null,
-                ),
-              ),
-              Divider(color: Colors.black),
-              Container(
-                margin: EdgeInsets.only(
-                    left: MediaQuery.of(context).padding.left + 10),
-                child: ListTile(
-                  title: Text(
-                    "Sporting Goods",
-                    style: TextStyle(
-                      color: Color(0xFF676767),
-                      fontSize: 23,
-                    ),
-                  ),
-                  onTap: null,
-                ),
-              ),
-              Divider(color: Colors.black),
-              Container(
-                margin: EdgeInsets.only(
-                    left: MediaQuery.of(context).padding.left + 10),
-                child: ListTile(
-                  title: Text(
-                    "Toys & Hobbies",
-                    style: TextStyle(
-                      color: Color(0xFF676767),
-                      fontSize: 23,
-                    ),
-                  ),
-                  onTap: null,
-                ),
-              ),
-              Divider(color: Colors.black),
-              Container(
-                margin: EdgeInsets.only(
-                    left: MediaQuery.of(context).padding.left + 10),
-                child: ListTile(
-                  title: Text(
-                    "Business & Industrial",
-                    style: TextStyle(
-                      color: Color(0xFF676767),
-                      fontSize: 23,
-                    ),
-                  ),
-                  onTap: null,
-                ),
-              ),
-              Divider(color: Colors.black),
-              Container(
-                margin: EdgeInsets.only(
-                    left: MediaQuery.of(context).padding.left + 10),
-                child: ListTile(
-                  title: Text(
-                    "Music",
-                    style: TextStyle(
-                      color: Color(0xFF676767),
-                      fontSize: 23,
-                    ),
-                  ),
-                  onTap: null,
-                ),
-              ),
-            ],
-          )
-        ],
+      body: ListView.builder(
+        itemCount: cats.length,
+        itemBuilder: (BuildContext context, int index) {
+          return ListTile(
+            title: cats[index],
+          );
+        },
       ),
     );
   }
